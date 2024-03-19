@@ -33,32 +33,45 @@ if lang == 'en':
     bad_profitability = en.BAD_PROFITABILITY
     good_profitability = en.GOOD_PROFITABILITY
     great_profitability = en.GREAT_PROFITABILITY
+
+
+def add_cost(cost):
     '''
-   Main function.
-   :return: None
-   '''
+    The function add key value in giving dictionary.
+    :return: False if you use break word otherwise True
+    '''
+
+    type_cost = input(f'{input_cost}: \n')
+    if type_cost == f'{break_word}':
+        return False
+    amount = float(input(f'{input_amount}{type_cost}: \n'))
+    cost[type_cost] = amount
+    return True
 
 
 def work_with_indicators():
+    '''
+    The function calculate profitability.
+    :return: None
+    '''
+
     revenue = float(input(f'{input_revenue}: \n'))
     cost = {}
-    while True:
-        type_cost = input(f'{input_cost}: \n')
-        if type_cost == f'{break_word}':
-            break
-        amount = float(input(f'{input_amount}{type_cost}: \n'))
-        cost[type_cost] = amount
+    active = True
+    while active:
+        active = add_cost(cost)
     total_cost = sum(cost.values())
     profit = revenue - total_cost
     profitability = (profit / total_cost)
 
     match profitability:
         case float() as quantity if quantity < 0:
-            print(f'{output_profitability} = {profitability*100:.2f}%\n {bad_profitability}!')
+            print(f'{output_profitability} = {profitability * 100:.2f}%\n {bad_profitability}!')
         case float() as quantity if quantity < 1:
-            print(f'{output_profitability} = {profitability*100:.2f}%\n {good_profitability}')
+            print(f'{output_profitability} = {profitability * 100:.2f}%\n {good_profitability}')
         case float() as quantity if quantity > 1:
             print(f'{output_profitability} = {profitability * 100:.2f}%\n {great_profitability}')
     print(f'{output_revenue} = {revenue}\n {output_total_cost} = {total_cost}\n {output_profit} = {profit}\n')
+
 
 work_with_indicators()
