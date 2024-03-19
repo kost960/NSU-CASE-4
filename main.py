@@ -18,7 +18,9 @@ if lang == 'ru':
     output_profit = ru.PROFIT
     output_profitability = ru.PROFITABILITY
     break_word = ru.WORD_BREAK
-
+    bad_profitability = ru.BAD_PROFITABILITY
+    good_profitability = ru.GOOD_PROFITABILITY
+    great_profitability = ru.GREAT_PROFITABILITY
 if lang == 'en':
     input_revenue = en.REVENUE_INPUT
     input_cost = en.TYPE_COST_INPUT
@@ -28,7 +30,9 @@ if lang == 'en':
     output_profit = en.PROFIT
     output_profitability = en.PROFITABILITY
     break_word = en.WORD_BREAK
-
+    bad_profitability = en.BAD_PROFITABILITY
+    good_profitability = en.GOOD_PROFITABILITY
+    great_profitability = en.GREAT_PROFITABILITY
     '''
    Main function.
    :return: None
@@ -47,8 +51,14 @@ def work_with_indicators():
     total_cost = sum(cost.values())
     profit = revenue - total_cost
     profitability = (profit / total_cost)
-    print(
-        f'{output_revenue} = {revenue}\n {output_total_cost} = {total_cost}\n {output_profit} = {profit}\n {output_profitability} = {profitability:.0%}')
 
+    match profitability:
+        case float() as quantity if quantity < 0:
+            print(f'{output_profitability} = {profitability*100:.2f}%\n {bad_profitability}!')
+        case float() as quantity if quantity < 1:
+            print(f'{output_profitability} = {profitability*100:.2f}%\n {good_profitability}')
+        case float() as quantity if quantity > 1:
+            print(f'{output_profitability} = {profitability * 100:.2f}%\n {great_profitability}')
+    print(f'{output_revenue} = {revenue}\n {output_total_cost} = {total_cost}\n {output_profit} = {profit}\n')
 
 work_with_indicators()
